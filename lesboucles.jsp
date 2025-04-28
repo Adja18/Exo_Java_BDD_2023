@@ -33,11 +33,11 @@
 public class Main {
   public static void main(String[] args) {
 
-    int Val = 5;
+   <% int Val = 5; %>
 
-    for(int i=0;i<Val,i++){
-       for (int j = 0; j < val;j++) {
-           System.out.println("");
+   <% for(int i=0;i<Val,i++){ %>
+      <% for (int j = 0; j < val;j++) {%>
+           
            }
     }
   }
