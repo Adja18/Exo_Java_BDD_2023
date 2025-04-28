@@ -13,25 +13,7 @@
 </form>
 
 <%! 
-    class MyClass {
-        String nameTache;
 
-        public MyClass(String name) {
-            nameTache = name;
-        }
-    }
-%>
 
-<%
-    String valeur = request.getParameter("valeur");
 
-    if (valeur != null && !valeur.isEmpty()) {
-        MyClass tache = new MyClass(valeur);
-%>
-        <p>Nom de la tâche : <%= tache.nameTache %></p>
-<%
-    }
-%>
 
-</body>
-</html>
