@@ -1,112 +1,70 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    // Récupérer la session HTTP existante
-    HttpSession session = request.getSession();
+<%@ page import="java.io.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    // Initialiser le tableau si nécessaire
-    ArrayList<Integer> tableau = (ArrayList<Integer>) session.getAttribute("tableau");
-    if (tableau == null) {
-        tableau = new ArrayList<Integer>();
-        session.setAttribute("tableau", tableau);
-    }
-
-    String message = "";
-    String action = request.getParameter("action");
-
-    if ("ajouter".equals(action)) {
-        try {
-            int valeur = Integer.parseInt(request.getParameter("valeur"));
-            if (tableau.size() < 10) {
-                tableau.add(valeur);
-                message = "✅ Valeur ajoutée avec succès.";
-            } else {
-                message = "❌ Le tableau est plein (10 éléments max).";
-            }
-        } catch (Exception e) {
-            message = "❌ Entrée invalide. Veuillez entrer un entier.";
-        }
-    } else if ("supprimer".equals(action)) {
-        if (!tableau.isEmpty()) {
-            tableau.remove(tableau.size() - 1);
-            message = "✅ Dernière valeur supprimée.";
-        } else {
-            message = "❌ Le tableau est déjà vide.";
-        }
-    } else if ("vider".equals(action)) {
-        tableau.clear();
-        message = "✅ Tableau vidé avec succès.";
-    }
-%>
-
-<!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Tableau Interactif</title>
+    <title>Exercice Chaine</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             margin: 40px;
-            background-color: #f4f4f4;
+            color: #333;
         }
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            width: 400px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+
+        h1 {
+            color: #444;
         }
-        input[type="number"], input[type="submit"] {
-            padding: 8px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-            font-size: 16px;
+
+        .resultat {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #007BFF;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
-        .message {
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #e6f7ff;
-            border-left: 4px solid #1890ff;
-        }
-        .tableau {
-            background: #fff3cd;
-            padding: 10px;
-            border-left: 4px solid #ffc107;
+
+        .info {
+            color: green;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>Manipulation du tableau</h2>
+    <h1>Manipulation de chaînes</h1>
 
-    <% if (!message.isEmpty()) { %>
-        <div class="message"><%= message %></div>
-    <% } %>
+    <%
+        String bonjour = "salut la compagnie";
+        String messageOriginal = "Chaîne d'origine enregistrée avec succès.";
 
-    <form method="post">
-        <label>Ajouter une valeur :</label>
-        <input type="number" name="valeur" required />
-        <input type="submit" name="action" value="ajouter" />
-    </form>
+        String majuscules = bonjour.toUpperCase();
+        String messageMaj = "Conversion en majuscules effectuée.";
 
-    <form method="post">
-        <input type="submit" name="action" value="supprimer" />
-        <input type="submit" name="action" value="vider" />
-    </form>
+        String capitalise = "";
+        String messageCap = "";
 
-    <div class="tableau">
-        <strong>Contenu actuel du tableau :</strong><br/>
-        <% if (tableau.isEmpty()) { %>
-            (Le tableau est vide)
-        <% } else { %>
-            <ul>
-                <% for (Integer val : tableau) { %>
-                    <li><%= val %></li>
-                <% } %>
-            </ul>
-        <% } %>
+        if (bonjour != null && !bonjour.isEmpty()) {
+            capitalise = bonjour.substring(0, 1).toUpperCase() + bonjour.substring(1).toLowerCase();
+            messageCap = "Première lettre mise en majuscule avec succès.";
+        } else {
+            messageCap = "Chaîne vide. Aucune transformation effectuée.";
+        }
+    %>
+
+    <div class="resultat">
+        <h2>Chaîne originale : <%= bonjour %></h2>
+        <p class="info"><%= messageOriginal %></p>
     </div>
-</div>
+
+    <div class="resultat">
+        <h2>En majuscules : <%= majuscules %></h2>
+        <p class="info"><%= messageMaj %></p>
+    </div>
+
+    <div class="resultat">
+        <h2>Première lettre en majuscule : <%= capitalise %></h2>
+        <p class="info"><%= messageCap %></p>
+    </div>
+
 </body>
 </html>
