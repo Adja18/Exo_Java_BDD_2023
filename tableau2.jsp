@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="javax.servlet.http.HttpSession" %>
-
 <%
+    // Récupérer la session HTTP existante
     HttpSession session = request.getSession();
 
-    // Initialisation du tableau si nécessaire
+    // Initialiser le tableau si nécessaire
     ArrayList<Integer> tableau = (ArrayList<Integer>) session.getAttribute("tableau");
     if (tableau == null) {
         tableau = new ArrayList<Integer>();
